@@ -1,9 +1,8 @@
 #!/bin/bash
-
 clear
 
 # ===============================
-# MODDERS CORE INSTALLER
+# MODDERS CORE INSTALLER (SAFE)
 # ===============================
 
 # Colors
@@ -15,31 +14,34 @@ NC='\033[0m'
 
 # Banner
 echo -e "${CYAN}"
-echo "╔══════════════════════════════════╗"
-echo "║        MODDERS CORE INSTALLER     ║"
-echo "║      PUBG / BGMI TOOL SETUP       ║"
-echo "╚══════════════════════════════════╝"
+echo "╔══════════════════════════════════════╗"
+echo "║        MODDERS CORE INSTALLER         ║"
+echo "║        PUBG / BGMI TOOL SETUP         ║"
+echo "╚══════════════════════════════════════╝"
 echo -e "${NC}"
 
 sleep 1
 
-# Python check
+# -------- Python --------
 echo -e "${YELLOW}[+] Checking Python...${NC}"
 if ! command -v python &>/dev/null; then
-    echo -e "${RED}[-] Python not found! Install Python first.${NC}"
+    echo -e "${RED}[-] Python not found. Install Python first.${NC}"
     exit 1
 fi
 echo -e "${GREEN}[✓] Python found${NC}"
 
-# Pip check
+# -------- pip --------
 echo -e "${YELLOW}[+] Checking pip...${NC}"
 if ! command -v pip &>/dev/null; then
     echo -e "${CYAN}[+] Installing pip...${NC}"
-    python -m ensurepip --upgrade
+    python -m ensurepip --upgrade || {
+        echo -e "${RED}[-] pip installation failed${NC}"
+        exit 1
+    }
 fi
 echo -e "${GREEN}[✓] pip ready${NC}"
 
-# Git check
+# -------- git --------
 echo -e "${YELLOW}[+] Checking git...${NC}"
 if ! command -v git &>/dev/null; then
     echo -e "${CYAN}[+] Installing git...${NC}"
@@ -47,13 +49,11 @@ if ! command -v git &>/dev/null; then
 fi
 echo -e "${GREEN}[✓] git ready${NC}"
 
-sleep 1
-
-# Upgrade pip
+# -------- pip upgrade --------
 echo -e "${CYAN}[+] Upgrading pip...${NC}"
-pip install --upgrade pip
+pip install --upgrade pip >/dev/null 2>&1
 
-# Required modules from 2.py
+# -------- Python modules --------
 echo -e "${YELLOW}[+] Installing required Python modules...${NC}"
 
 pip install \
@@ -64,37 +64,40 @@ pyfiglet \
 pycryptodome \
 zstandard \
 gmalg || {
-    echo -e "${RED}[-] Module installation failed!${NC}"
+    echo -e "${RED}[-] Python module installation failed${NC}"
     exit 1
 }
 
 echo -e "${GREEN}[✓] All Python modules installed${NC}"
 
-sleep 1
-
-# Clone Modders_Core
+# -------- Clone repo --------
 echo -e "${CYAN}[+] Downloading Modders_Core...${NC}"
 
 if [ -d "Modders_Core" ]; then
-    echo -e "${YELLOW}[!] Modders_Core already exists, skipping clone${NC}"
+    echo -e "${YELLOW}[!] Modders_Core already exists — skipping clone${NC}"
 else
     git clone https://github.com/SK-VIP-CONFIG/Modders_Core.git || {
-        echo -e "${RED}[-] Git clone failed!${NC}"
+        echo -e "${RED}[-] Git clone failed${NC}"
         exit 1
     }
 fi
 
-sleep 1
-
-# Setup permissions
-echo -e "${CYAN}[+] Setting permissions...${NC}"
-cd Modders_Core || exit
+# -------- Permissions --------
+echo -e "${CYAN}[+] Setting executable permissions...${NC}"
+cd Modders_Core || exit 1
 chmod +x *
 
-echo -e "${GREEN}[✓] Permissions applied${NC}"
+echo -e "${GREEN}[✓] Permissions set${NC}"
 
-sleep 1
-
-# Run tool
-echo -e "${GREEN}[+] Launching Modders_Core...${NC}"
-./Modders_Core
+# -------- Finish --------
+echo
+echo -e "${GREEN}═══════════════════════════════════════${NC}"
+echo -e "${GREEN}✔ MODDERS CORE INSTALLED SUCCESSFULLY${NC}"
+echo -e "${GREEN}═══════════════════════════════════════${NC}"
+echo
+echo -e "${CYAN}To run the tool:${NC}"
+echo -e "${YELLOW}cd Modders_Core${NC}"
+echo -e "${YELLOW}./Modders_Core${NC}"
+echo
+echo -e "${RED}⚠ Do NOT run via curl | bash (interactive login required)${NC}"
+echo -e "${GREEN}Enjoy 🔥${NC}"
