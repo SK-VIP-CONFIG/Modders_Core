@@ -18,7 +18,12 @@ SM4_SECRET_NEW = [
     'xT1cJ6dL5wC0kK1rB4dK',
     'qC4jS5bZ6fL5xE6nD4zA',
     'gD4jQ2aL3bS3lC3xT0iW',
-    'xU1yQ8wE9zY3gZ3bT5aE'
+    'xU1yQ8wE9zY3gZ3bT5aE',
+    'uQ3cO2dX7xY4xU7gH7iS',
+    'gW1fR0jK6wQ4oN0oK1kZ',
+    'aJ4pV7iZ7pU4wP2aC2cZ',
+    'cX6jT3cM2oT3vK0kJ1qN',
+    'iT2vS0cS6yT6cZ1sE1lO'
 ]
 
 EM_SIMPLE1 = 1
