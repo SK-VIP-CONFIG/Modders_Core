@@ -59,6 +59,7 @@ echo -e "${YELLOW}[+] Installing required Python modules...${NC}"
 pip install \
 requests \
 rich \
+zstd \
 colorama \
 pyfiglet \
 pycryptodome \
