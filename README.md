@@ -5,7 +5,7 @@ Simple Unpacker • Repacker • Compare DAT • Anti‑Reset
 ## Features
 
 -   Fast PAK unpack & repack\
--   Supports PUBG/BGMI 4.1\
+-   Supports PUBG/BGMI 4.3\
 -   Auto folder structure\
 -   Compare DAT tool\
 -   Anti‑reset OBB system
