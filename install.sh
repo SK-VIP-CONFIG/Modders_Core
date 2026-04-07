@@ -74,10 +74,10 @@ echo -e "${GREEN}[✓] All Python modules installed${NC}"
 # -------- Clone repo --------
 echo -e "${CYAN}[+] Downloading Modders_Core...${NC}"
 
-if [ -d "Modders_Core" ]; then
+if [ -d "$HOME/Modders_Core" ]; then
     echo -e "${YELLOW}[!] Modders_Core already exists — skipping clone${NC}"
 else
-    git clone https://github.com/SK-VIP-CONFIG/Modders_Core.git || {
+    git clone https://github.com/SK-VIP-CONFIG/Modders_Core.git "$HOME/Modders_Core" || {
         echo -e "${RED}[-] Git clone failed${NC}"
         exit 1
     }
@@ -85,10 +85,24 @@ fi
 
 # -------- Permissions --------
 echo -e "${CYAN}[+] Setting executable permissions...${NC}"
-cd Modders_Core || exit 1
+cd "$HOME/Modders_Core" || exit 1
 chmod +x *
 
 echo -e "${GREEN}[✓] Permissions set${NC}"
+
+# -------- Create Global Command --------
+echo -e "${CYAN}[+] Creating global command...${NC}"
+
+CMD_PATH="$PREFIX/bin/Modders_Core"
+
+cat > $CMD_PATH << 'EOF'
+#!/bin/bash
+cd $HOME/Modders_Core && ./Modders_Core
+EOF
+
+chmod +x $CMD_PATH
+
+echo -e "${GREEN}[✓] Command created: Modders_Core${NC}"
 
 # -------- Finish --------
 echo
@@ -96,9 +110,8 @@ echo -e "${GREEN}═════════════════════
 echo -e "${GREEN}✔ MODDERS CORE INSTALLED SUCCESSFULLY${NC}"
 echo -e "${GREEN}═══════════════════════════════════════${NC}"
 echo
-echo -e "${CYAN}To run the tool:${NC}"
-echo -e "${YELLOW}cd Modders_Core${NC}"
-echo -e "${YELLOW}./Modders_Core${NC}"
+echo -e "${CYAN}Now you can run from anywhere:${NC}"
+echo -e "${YELLOW}Modders_Core${NC}"
 echo
 echo -e "${RED}⚠ Do NOT run via curl | bash (interactive login required)${NC}"
 echo -e "${GREEN}Enjoy 🔥${NC}"
