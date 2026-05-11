@@ -16,11 +16,13 @@ spinner() {
     local msg=$2
     local spin='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
     local i=0
+
     while kill -0 $pid 2>/dev/null; do
         printf "\r  ${CYAN}${spin:$i:1}${NC}  ${DIM}$msg${NC}"
         i=$(( (i+1) % 10 ))
         sleep 0.08
     done
+
     printf "\r"
 }
 
@@ -29,14 +31,25 @@ progress_bar() {
     local total=$2
     local label=$3
     local width=30
+
     local filled=$(( current * width / total ))
     local empty=$(( width - filled ))
     local pct=$(( current * 100 / total ))
+
     local bar="${GREEN}"
-    for ((i=0; i<filled; i++)); do bar+="█"; done
+
+    for ((i=0; i<filled; i++)); do
+        bar+="█"
+    done
+
     bar+="${DIM}"
-    for ((i=0; i<empty; i++)); do bar+="░"; done
+
+    for ((i=0; i<empty; i++)); do
+        bar+="░"
+    done
+
     bar+="${NC}"
+
     printf "  [${bar}] ${BOLD}%3d%%${NC}  ${DIM}%s${NC}\n" $pct "$label"
 }
 
@@ -99,6 +112,7 @@ print_final_box() {
 }
 
 # ═══════════════════════════════════════════
+
 print_banner
 sleep 0.5
 
@@ -111,9 +125,11 @@ if ! command -v python &>/dev/null; then
 fi
 
 PY_VER=$(python --version 2>&1 | awk '{print $2}')
+
 log_ok "Python ${BOLD}$PY_VER${NC} found"
 
 progress_bar 1 6 "Python verified"
+
 sleep 0.3
 
 # STEP 2
@@ -121,6 +137,7 @@ section "STEP 2/6 — PIP SETUP"
 
 if ! command -v pip &>/dev/null; then
     log_info "Installing pip..."
+
     python -m ensurepip --upgrade &>/dev/null &
     spinner $! "Installing pip..."
 fi
@@ -128,12 +145,14 @@ fi
 PIP_VER=$(pip --version 2>&1 | awk '{print $2}')
 
 log_info "Upgrading pip..."
+
 pip install --upgrade pip &>/dev/null &
 spinner $! "Upgrading pip..."
 
 log_ok "pip ${BOLD}$PIP_VER${NC} ready"
 
 progress_bar 2 6 "pip ready"
+
 sleep 0.3
 
 # STEP 3
@@ -141,6 +160,7 @@ section "STEP 3/6 — GIT CHECK"
 
 if ! command -v git &>/dev/null; then
     log_info "Installing git..."
+
     (pkg install git -y 2>/dev/null || apt install git -y 2>/dev/null) &
     spinner $! "Installing git..."
 fi
@@ -150,12 +170,23 @@ GIT_VER=$(git --version 2>&1 | awk '{print $3}')
 log_ok "git ${BOLD}$GIT_VER${NC} ready"
 
 progress_bar 3 6 "git ready"
+
 sleep 0.3
 
 # STEP 4
 section "STEP 4/6 — PYTHON MODULES"
 
-MODULES=(requests rich zstd colorama pyfiglet pycryptodome zstandard gmalg)
+MODULES=(
+    requests
+    rich
+    zstd
+    colorama
+    pyfiglet
+    pycryptodome
+    zstandard
+    gmalg
+)
+
 TOTAL=${#MODULES[@]}
 
 for mod in "${MODULES[@]}"; do
@@ -183,24 +214,32 @@ for mod in "${MODULES[@]}"; do
 done
 
 divider
+
 log_ok "All ${BOLD}$TOTAL${NC} modules installed"
 
 progress_bar 4 6 "Modules ready"
+
 sleep 0.3
 
 # STEP 5
 section "STEP 5/6 — CLONE REPO"
 
+# Old folder delete
 if [ -d "$HOME/Modders_Core" ]; then
+
     log_warn "Old Modders_Core folder found"
+
     log_info "Deleting old folder..."
 
     rm -rf "$HOME/Modders_Core" &
     spinner $! "Removing old Modders_Core..."
 
+    wait $!
+
     log_ok "Old folder deleted"
 fi
 
+# Fresh clone
 log_info "Cloning fresh repo from GitHub..."
 
 git clone https://github.com/SK-VIP-CONFIG/Modders_Core.git "$HOME/Modders_Core" 2>&1 | \
@@ -208,10 +247,10 @@ while IFS= read -r line; do
     echo -e "  ${DIM}$line${NC}"
 done
 
-[ ${PIPESTATUS[0]} -ne 0 ] && {
+if [ ${PIPESTATUS[0]} -ne 0 ]; then
     log_err "Git clone failed"
     exit 1
-}
+fi
 
 log_ok "Modders_Core ready at ${CYAN}~/Modders_Core${NC}"
 
@@ -222,6 +261,7 @@ chmod +x *
 log_ok "Executable permissions set"
 
 progress_bar 5 6 "Repo cloned"
+
 sleep 0.3
 
 # STEP 6
@@ -239,6 +279,7 @@ chmod +x "$CMD_PATH"
 log_ok "Global command created: ${CYAN}Modders_Core${NC}"
 
 progress_bar 6 6 "Installation complete"
+
 sleep 0.3
 
 # FINAL BOX
