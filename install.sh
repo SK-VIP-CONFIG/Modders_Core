@@ -70,7 +70,6 @@ log_err()  { echo -e "  ${RED}[✘]${NC}  $1"; }
 divider()  { echo -e "  ${DIM}──────────────────────────────────────${NC}"; }
 
 print_final_box() {
-    local tool_path="${CYAN}Modders_Core${NC}"
     echo
     echo -e "${GREEN}  ╔══════════════════════════════════════════╗${NC}"
     echo -e "${GREEN}  ║                                          ║${NC}"
@@ -105,92 +104,140 @@ sleep 0.5
 
 # STEP 1
 section "STEP 1/6 — PYTHON CHECK"
+
 if ! command -v python &>/dev/null; then
     log_err "Python not found. Install Python first."
     exit 1
 fi
+
 PY_VER=$(python --version 2>&1 | awk '{print $2}')
 log_ok "Python ${BOLD}$PY_VER${NC} found"
+
 progress_bar 1 6 "Python verified"
 sleep 0.3
 
 # STEP 2
 section "STEP 2/6 — PIP SETUP"
+
 if ! command -v pip &>/dev/null; then
     log_info "Installing pip..."
     python -m ensurepip --upgrade &>/dev/null &
     spinner $! "Installing pip..."
 fi
+
 PIP_VER=$(pip --version 2>&1 | awk '{print $2}')
+
 log_info "Upgrading pip..."
 pip install --upgrade pip &>/dev/null &
 spinner $! "Upgrading pip..."
+
 log_ok "pip ${BOLD}$PIP_VER${NC} ready"
+
 progress_bar 2 6 "pip ready"
 sleep 0.3
 
 # STEP 3
 section "STEP 3/6 — GIT CHECK"
+
 if ! command -v git &>/dev/null; then
     log_info "Installing git..."
     (pkg install git -y 2>/dev/null || apt install git -y 2>/dev/null) &
     spinner $! "Installing git..."
 fi
+
 GIT_VER=$(git --version 2>&1 | awk '{print $3}')
+
 log_ok "git ${BOLD}$GIT_VER${NC} ready"
+
 progress_bar 3 6 "git ready"
 sleep 0.3
 
 # STEP 4
 section "STEP 4/6 — PYTHON MODULES"
+
 MODULES=(requests rich zstd colorama pyfiglet pycryptodome zstandard gmalg)
 TOTAL=${#MODULES[@]}
+
 for mod in "${MODULES[@]}"; do
+
     printf "  ${CYAN}[➤]${NC}  Installing ${BOLD}%-16s${NC} " "$mod..."
+
     pip install "$mod" &>/dev/null &
     PID=$!
+
     sp='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
     i=0
+
     while kill -0 $PID 2>/dev/null; do
         printf "\b${CYAN}${sp:$i:1}${NC}"
         i=$(( (i+1) % 10 ))
         sleep 0.07
     done
-    wait $PID && printf "\b${GREEN}✔${NC}\n" || { printf "\b${RED}✘${NC}\n"; log_err "Failed: $mod"; exit 1; }
+
+    wait $PID && printf "\b${GREEN}✔${NC}\n" || {
+        printf "\b${RED}✘${NC}\n"
+        log_err "Failed: $mod"
+        exit 1
+    }
+
 done
+
 divider
 log_ok "All ${BOLD}$TOTAL${NC} modules installed"
+
 progress_bar 4 6 "Modules ready"
 sleep 0.3
 
 # STEP 5
 section "STEP 5/6 — CLONE REPO"
+
 if [ -d "$HOME/Modders_Core" ]; then
-    log_warn "Modders_Core already exists — skipping clone"
-else
-    log_info "Cloning from GitHub..."
-    git clone https://github.com/SK-VIP-CONFIG/Modders_Core.git "$HOME/Modders_Core" 2>&1 | \
-        while IFS= read -r line; do
-            echo -e "  ${DIM}$line${NC}"
-        done
-    [ ${PIPESTATUS[0]} -ne 0 ] && { log_err "Git clone failed"; exit 1; }
+    log_warn "Old Modders_Core folder found"
+    log_info "Deleting old folder..."
+
+    rm -rf "$HOME/Modders_Core" &
+    spinner $! "Removing old Modders_Core..."
+
+    log_ok "Old folder deleted"
 fi
+
+log_info "Cloning fresh repo from GitHub..."
+
+git clone https://github.com/SK-VIP-CONFIG/Modders_Core.git "$HOME/Modders_Core" 2>&1 | \
+while IFS= read -r line; do
+    echo -e "  ${DIM}$line${NC}"
+done
+
+[ ${PIPESTATUS[0]} -ne 0 ] && {
+    log_err "Git clone failed"
+    exit 1
+}
+
 log_ok "Modders_Core ready at ${CYAN}~/Modders_Core${NC}"
+
 cd "$HOME/Modders_Core" || exit 1
+
 chmod +x *
+
 log_ok "Executable permissions set"
+
 progress_bar 5 6 "Repo cloned"
 sleep 0.3
 
 # STEP 6
 section "STEP 6/6 — GLOBAL COMMAND"
+
 CMD_PATH="${PREFIX:-/usr/local}/bin/Modders_Core"
+
 cat > "$CMD_PATH" << 'EOF'
 #!/bin/bash
-cd $HOME/Modders_Core && ./Modders_Core
+cd "$HOME/Modders_Core" && ./Modders_Core
 EOF
+
 chmod +x "$CMD_PATH"
+
 log_ok "Global command created: ${CYAN}Modders_Core${NC}"
+
 progress_bar 6 6 "Installation complete"
 sleep 0.3
 
