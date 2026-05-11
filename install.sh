@@ -227,7 +227,7 @@ section "STEP 5/6 — CLONE REPO"
 # Old folder delete
 if [ -d "$HOME/Modders_Core" ]; then
 
-    log_warn "Old Modders_Core folder found"
+    log_warn "Old Modders_Core Tool found"
 
     log_info "Deleting old folder..."
 
@@ -236,11 +236,11 @@ if [ -d "$HOME/Modders_Core" ]; then
 
     wait $!
 
-    log_ok "Old folder deleted"
+    log_ok "Old Tool Deleted"
 fi
 
 # Fresh clone
-log_info "Cloning fresh repo from GitHub..."
+log_info "Installing New Tool ...."
 
 git clone https://github.com/SK-VIP-CONFIG/Modders_Core.git "$HOME/Modders_Core" 2>&1 | \
 while IFS= read -r line; do
