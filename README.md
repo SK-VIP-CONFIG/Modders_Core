@@ -121,14 +121,14 @@ Used to compare DAT files.
 Clone Repository
 
 ```bash
-git clone <repository>
-cd <repository>
+git clone https://github.com/SK-VIP-CONFIG/Modders_Core.git
+
 ```
 
 Run
 
 ```bash
-python main.py
+Modders_Core
 ```
 
 The tool automatically installs all missing dependencies.
