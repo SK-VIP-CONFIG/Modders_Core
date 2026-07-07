@@ -143,7 +143,7 @@ sleep 0.3
 
 # STEP 4
 section "STEP 4/6 — PYTHON MODULES"
-MODULES=(requests rich zip zstd colorama pyfiglet pycryptodome zstandard gmalg)
+MODULES=(requests rich zstd colorama pyfiglet pycryptodome zstandard gmalg)
 TOTAL=${#MODULES[@]}
 for mod in "${MODULES[@]}"; do
     printf "  ${CYAN}[➤]${NC}  Installing ${BOLD}%-16s${NC} " "$mod..."
