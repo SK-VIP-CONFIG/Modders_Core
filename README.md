@@ -1,30 +1,277 @@
-# Shivam TOOL -- PUBGM/BGMI
+# 🚀 Modders Core Toolkit
 
-Simple Unpacker • Repacker • Compare DAT • Anti‑Reset
+> Professional PUBG/BGMI PAK Utility for Android (Termux)
 
-## Features
+A powerful all-in-one toolkit for unpacking, editing, comparing and repacking PUBG/BGMI game resources.
 
--   Fast PAK unpack & repack\
--   Supports PUBG/BGMI 4.3\
--   Auto folder structure\
--   Compare DAT tool\
--   Anti‑reset OBB system
+---
 
-## Usage
+# ✨ Features
 
-1.  Put PAK in INPUT\
-2.  Unpack → Files in UNPACKED\
-3.  Edit → Put in EDITED\
-4.  Repack → Output in REPACK\
+## 📦 PAK Tools
+- Normal PAK Unpack
+- Chunk PAK Unpack
+- Normal Repack
+- Chunk Repack
+- Auto Chunk Split
+- Single File Extract
+- Batch Processing
 
-# 120 Fps Usage 
+## 📂 File Management
+- Automatic Folder Creation
+- Organized Output Structure
+- Compare DAT Support
+- Search Results Export
 
-1.  First Put Fps Pak In GAMEPATCH/INPUT Folder\
-2.  Then Unpack Fps Pak Using GAMEPATCH TOOL\
-3.  Now Select AUTO 120 FPS Menu\
-4.  Enter Device Model No\
-5.  Your Fps Pak Is In GAMEPATCH/REPACKED\
+## 🔐 Security
+- Self Healing Dependency Engine
+- Auto Dependency Installer
+- Device Authentication
+- License Validation
+- Live Key Monitor
+- OTA Update Support
+- Anti Debug Protection
+- Anti Emulator
+- Anti VPN
+- Anti Frida
+- Anti Tampering
 
-## Developer
+## 🛠 Additional Modules
+- Credit Tool
+- Lua Tool
+- Anti Reset Tool
+- GamePatch Tool
+- ZSDIC Tool
+- MINI OBB Tool
+- OD PAK Tool
 
-Created by Shivam [ @ShivamMaurya09 ]
+---
+
+# 📁 Folder Structure
+
+```
+Tool Name/
+
+│
+├── ZSDIC/
+│   ├── INPUT
+│   ├── EDITED
+│   ├── REPACKED
+│   ├── UNPACKED
+│   ├── SEARCH_RESULTS
+│   └── COMPARE_DAT
+│
+├── MINI_OBB/
+│
+├── OD_PAK/
+│
+├── GAMEPATCH/
+│
+├── ANTIRESET/
+│   ├── ORG_OBB
+│   └── MODDED_OBB
+│
+├── CREDIT TOOL/
+│   ├── ORIGINAL PAK
+│   ├── MODDED PAK
+│   ├── CHANGED PAK
+│   └── EDITED TEMP
+│
+└── LUA TOOL/
+    ├── INPUT
+    ├── EDITED
+    ├── OUTPUT
+    ├── DECRYPT
+    ├── INPUT PAK
+    └── OUTPUT PAK
+```
+
+---
+
+# 📖 Basic Knowledge
+
+## INPUT
+
+Place original files here.
+
+## EDITED
+
+Edit extracted files here before repacking.
+
+## UNPACKED
+
+All extracted files are stored here.
+
+## REPACKED
+
+Final generated PAK files are saved here.
+
+## SEARCH_RESULTS
+
+Stores search output.
+
+## COMPARE_DAT
+
+Used to compare DAT files.
+
+---
+
+# ⚙️ Installation
+
+Clone Repository
+
+```bash
+git clone <repository>
+cd <repository>
+```
+
+Run
+
+```bash
+python main.py
+```
+
+The tool automatically installs all missing dependencies.
+
+No manual setup required.
+
+---
+
+# 📦 Supported Platforms
+
+- Android (Termux)
+- Python 3.10+
+- OpenJDK 17
+- Lua 5.3
+
+---
+
+# 🔧 Required Packages
+
+The tool automatically installs
+
+- requests
+- rich
+- colorama
+- pyfiglet
+- pycryptodome
+- zstandard
+- gmalg
+
+System Packages
+
+- zip
+- unzip
+- openjdk-17
+- lua53
+- clang
+- rust
+- make
+- openssl
+- libffi
+
+---
+
+# 🚀 Usage
+
+## Step 1
+
+Copy original PAK into INPUT folder.
+
+## Step 2
+
+Choose Unpack option.
+
+## Step 3
+
+Edit extracted files.
+
+## Step 4
+
+Choose Repack.
+
+## Step 5
+
+Generated file will appear inside REPACKED folder.
+
+---
+
+# 📦 Credit Tool
+
+Used to modify Credits inside PAK.
+
+Workflow
+
+```
+Original PAK
+
+↓
+
+Extract
+
+↓
+
+Edit
+
+↓
+
+Replace
+
+↓
+
+Generate New PAK
+```
+
+---
+
+# 📜 Lua Tool
+
+Supports
+
+- Lua Extract
+- Lua Decrypt
+- Lua Edit
+- Lua Repack
+
+---
+
+# 🔒 Security System
+
+The toolkit includes multiple security mechanisms:
+
+- License Verification
+- Device Binding
+- Live Validation
+- OTA Update
+- Dependency Verification
+- Runtime Protection
+
+---
+
+# 📄 Requirements
+
+Python 3.10+
+
+Android Termux
+
+Internet Connection (First Launch)
+
+---
+
+# ⚠️ Disclaimer
+
+This project is provided for educational and research purposes only.
+
+Users are responsible for following the terms and policies of any software or game they work with.
+
+---
+
+# ❤️ Credits
+
+Developer
+
+**Shivam**
+
+Powered by @ShivamMaurya09 
+
+**Modders Core Engine**
