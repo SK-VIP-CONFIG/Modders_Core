@@ -50,7 +50,7 @@ print_banner() {
     echo -e "${GREEN}  ║   ${WHITE}██║ ╚═╝ ██║╚██████╗${GREEN}                   ║${NC}"
     echo -e "${GREEN}  ║   ${WHITE}╚═╝     ╚═╝ ╚═════╝${GREEN}                   ║${NC}"
     echo -e "${GREEN}  ║                                          ║${NC}"
-    echo -e "${GREEN}  ║      ${CYAN}MODDERS CORE INSTALLER v2.0${GREEN}       ║${NC}"
+    echo -e "${GREEN}  ║      ${CYAN}MODDERS CORE INSTALLER v4.4 & 4.5 ${GREEN}       ║${NC}"
     echo -e "${GREEN}  ║      ${DIM}PUBG / BGMI TOOL SETUP${NC}${GREEN}            ║${NC}"
     echo -e "${GREEN}  ╚══════════════════════════════════════════╝${NC}"
     echo
